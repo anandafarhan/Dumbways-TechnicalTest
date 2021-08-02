@@ -10,6 +10,19 @@
       $('#categoryDataTable').DataTable();
    });
 
+   $('.edit').on('click', function(e) {
+      let name = $(this).data('name');
+      let stock = $(this).data('stock');
+      let desc = $(this).data('desc');
+      let id = $(this).data('id');
+      $('#editModal').modal('show');
+      $('#title').html("Edit " + name);
+      $('#name').val(name);
+      $('#stock').val(stock);
+      $('#desc').val(desc);
+      $('#edid').attr('value', id);
+   });
+
    $('.del').on('click', function(e) {
       let product = $(this).data('product');
       let tipe = $(this).data('tipe');

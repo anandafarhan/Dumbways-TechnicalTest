@@ -33,7 +33,7 @@ include('header.php');
                         <td><?php echo $row['category_name']; ?></td>
                         <td>
                            <div class="btn-group me-2 d-flex justify-content-center" role="group">
-                              <button type="button" class="btn btn-sm btn-warning edit" data-id="<?= $row['book_id']; ?>" data-product="<?= $row['book_name']; ?>" data-stock="<?= $row['stock']; ?>"><i class="bi-pencil-square"></i></button>
+                              <button type="button" class="btn btn-sm btn-warning edit" data-id="<?= $row['book_id']; ?>" data-name="<?= $row['book_name']; ?>" data-stock="<?= $row['stock']; ?>" data-desc="<?= $row['description']; ?>"><i class="bi-pencil-square"></i></button>
                               <button type="button" class="btn btn-sm btn-danger del" data-id="<?= $row['book_id']; ?>" data-product="<?= $row['book_name']; ?>"><i class="bi-trash-fill"></i></button>
                            </div>
                         </td>
@@ -78,7 +78,7 @@ include('header.php');
                         <td><?php echo $row['name']; ?></td>
                         <td>
                            <div class="btn-group me-2 d-flex justify-content-center" role="group">
-                              <button type="button" class="btn btn-sm btn-warning edit" data-id="<?= $row['book_id']; ?>" data-product="<?= $row['book_name']; ?>" data-stock="<?= $row['stock']; ?>"><i class="bi-pencil-square"></i></button>
+                              <button type="button" class="btn btn-sm btn-warning edit" data-id="<?= $row['book_id']; ?>" data-name="<?= $row['book_name']; ?>" data-stock="<?= $row['stock']; ?>" data-desc="<?= $row['description']; ?>"><i class="bi-pencil-square"></i></button>
                               <button type="button" class="btn btn-sm btn-danger del" data-tipe="category" data-id="<?= $row['id']; ?>" data-product="<?= $row['name']; ?>"><i class="bi-trash-fill"></i></button>
                            </div>
                         </td>
@@ -168,6 +168,57 @@ include('header.php');
    </div>
 </div>
 <!-- Category Modal End -->
+
+<!-- Edit Book Modal Start -->
+<div class="modal fade" id="editModal" data-bs-backdrop="static" tabindex="-1">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Add Book</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <form method="POST" action="DB_Func.php?func=updateBook" enctype="multipart/form-data">
+            <div class="modal-body">
+               <div class="mb-3">
+                  <label for="ProductName" class="form-label">Book Name</label>
+                  <input type="text" class="form-control" name="name" id="name" required>
+               </div>
+               <div class="mb-3">
+                  <label for="stock" class="form-label">Stock</label>
+                  <input type="number" class="form-control" name="stock" id="stock" required>
+               </div>
+               <div class="mb-3">
+                  <label for="category" class="form-label">Category</label>
+                  <select class="form-select" aria-label="Category" name="category">
+                     <?php
+                     if ($books->getAllCategory()->num_rows > 0) {
+                        foreach ($books->getAllCategory() as $cat) {
+                     ?>
+                           <option value="<?= $cat['id']; ?>"><?= $cat['name']; ?></option>
+                     <?php
+                        }
+                     }
+                     ?>
+                  </select>
+               </div>
+               <div class="mb-3">
+                  <label for="cost" class="form-label">Description</label>
+                  <textarea class="form-control" name="desc" id="desc" rows="3" required></textarea>
+               </div>
+               <div class="mb-3">
+                  <label for="formFile" class="form-label">Image</label>
+                  <input class="form-control" type="file" name="image" id="formFile">
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+               <button type="submit" class="btn btn-primary" id="edid" name="editproduct">Save</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+<!-- Edit Book Modal End -->
 
 <!-- Destroy Data Modal Start -->
 <div class="modal fade" id="modalDelete" tabindex="-1">

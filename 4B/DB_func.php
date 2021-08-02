@@ -19,7 +19,7 @@ class Books extends Database
 {
    function getAllBooks()
    {
-      $sql = "SELECT books.id AS book_id, books.name AS book_name, stock, categories.id AS category_id, categories.name AS category_name FROM books join categories on books.category_id = categories.id;";
+      $sql = "SELECT books.id AS book_id, books.name AS book_name, stock, categories.id AS category_id, categories.name AS category_name, description FROM books join categories on books.category_id = categories.id;";
       return $this->con->query($sql);
    }
 
@@ -50,6 +50,15 @@ class Books extends Database
       $this->con->query($sql);
       header('Location: manage_data.php');
    }
+
+   function updateBook($id, $name, $stock, $image, $decription, $category_id)
+   {
+      $sql = "UPDATE books SET name='$name', stock='$stock', image='$image', description='$decription', category_id='$category_id' WHERE id = '$id'";
+
+      $this->con->query($sql);
+      header('Location: manage_data.php');
+   }
+
 
    function destroyBook($id)
    {
@@ -91,6 +100,23 @@ if (isset($_GET['func'])) {
             $name = $_POST['newcat'];
 
             $books->storeCategory($name);
+         }
+         break;
+
+      case 'updateBook':
+         if (isset($_POST['editproduct'])) {
+            $id = $_POST['editproduct'];
+            $bookname = $_POST['name'];
+            $stock = $_POST['stock'];
+            $category = $_POST['category'];
+            $desc = $_POST['desc'];
+            $image = $_FILES["image"]["name"];
+
+            $path = "img/Books/";
+            $path = $path . basename($_FILES['image']['name']);
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
+               $books->updateBook($id, $bookname, $stock, $image, $desc, $category);
+            } else echo "error";
          }
          break;
 
