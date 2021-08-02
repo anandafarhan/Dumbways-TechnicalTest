@@ -59,6 +59,14 @@ class Books extends Database
       header('Location: manage_data.php');
    }
 
+   function updateCategory($id, $name)
+   {
+      $sql = "UPDATE categories SET name='$name' WHERE id = '$id'";
+
+      $this->con->query($sql);
+      header('Location: manage_data.php');
+   }
+
 
    function destroyBook($id)
    {
@@ -117,6 +125,15 @@ if (isset($_GET['func'])) {
             if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
                $books->updateBook($id, $bookname, $stock, $image, $desc, $category);
             } else echo "error";
+         }
+         break;
+
+      case 'updateCat':
+         if (isset($_POST['editcat'])) {
+            $id = $_POST['editcat'];
+            $name = $_POST['catname'];
+            // var_dump($id, $name);
+            $books->updateCategory($id, $name);
          }
          break;
 

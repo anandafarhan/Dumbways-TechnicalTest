@@ -78,7 +78,7 @@ include('header.php');
                         <td><?php echo $row['name']; ?></td>
                         <td>
                            <div class="btn-group me-2 d-flex justify-content-center" role="group">
-                              <button type="button" class="btn btn-sm btn-warning edit" data-id="<?= $row['book_id']; ?>" data-name="<?= $row['book_name']; ?>" data-stock="<?= $row['stock']; ?>" data-desc="<?= $row['description']; ?>"><i class="bi-pencil-square"></i></button>
+                              <button type="button" class="btn btn-sm btn-warning editcat" data-id="<?= $row['id']; ?>" data-name="<?= $row['name']; ?>"><i class="bi-pencil-square editcat"></i></button>
                               <button type="button" class="btn btn-sm btn-danger del" data-tipe="category" data-id="<?= $row['id']; ?>" data-product="<?= $row['name']; ?>"><i class="bi-trash-fill"></i></button>
                            </div>
                         </td>
@@ -169,12 +169,37 @@ include('header.php');
 </div>
 <!-- Category Modal End -->
 
+<!-- Edit Category Modal Start -->
+<div class="modal fade" id="editCatModal" tabindex="-1">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Edit Category</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <form method="POST" action="DB_Func.php?func=updateCat">
+            <div class="modal-body">
+               <div class="mb-3">
+                  <label for="addCategory" class="col-form-label">Category:</label>
+                  <input type="text" class="form-control" id="catname" name="catname" required>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary" name="editcat" id="editcat" name="addcategory">Save</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+<!-- Edit Category Modal End -->
+
 <!-- Edit Book Modal Start -->
 <div class="modal fade" id="editModal" data-bs-backdrop="static" tabindex="-1">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title">Add Book</h5>
+            <h5 class="modal-title">Edit Book</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <form method="POST" action="DB_Func.php?func=updateBook" enctype="multipart/form-data">

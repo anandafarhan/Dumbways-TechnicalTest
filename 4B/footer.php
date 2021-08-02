@@ -16,11 +16,18 @@
       let desc = $(this).data('desc');
       let id = $(this).data('id');
       $('#editModal').modal('show');
-      $('#title').html("Edit " + name);
       $('#name').val(name);
       $('#stock').val(stock);
       $('#desc').val(desc);
       $('#edid').attr('value', id);
+   });
+
+   $('.editcat').on('click', function(e) {
+      let name = $(this).data('name');
+      let id = $(this).data('id');
+      $('#editCatModal').modal('show');
+      $('#catname').val(name);
+      $('#editcat').attr('value', id);
    });
 
    $('.del').on('click', function(e) {
